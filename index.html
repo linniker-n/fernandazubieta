@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Convênio Empresarial — Zubieta Odontologia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --p:  #6B42A8;
+  --pd: #4D3080;
+  --b:  #2652B5;
+  --grad:linear-gradient(135deg,#6B42A8 0%,#2652B5 100%);
+  --bg: #FFFFFF;
+  --bg2:#F8F5FE;
+  --bg3:#F0EBF9;
+  --tx: #1A1630;
+  --tx2:#2D2448;
+  --mu: #6B5F88;
+  --mu2:#A89EC0;
+  --edge:rgba(117,83,181,0.13);
+  --edge2:rgba(117,83,181,0.07);
+  --sh: 0 2px 20px rgba(117,83,181,0.08);
+  --sh-md:0 4px 40px rgba(117,83,181,0.13);
+
+  /* ── AJUSTE DO LOGO DA CAPA ── */
+  --logo-size:        580px; /* altura do logo */
+  --logo-offset-top:    0px; /* move para baixo (+) ou para cima (-) */
+  --logo-offset-left:   0px; /* move para direita (+) ou esquerda (-) */
+}
+
+html,body{
+  width:100%;height:100vh;overflow:hidden;
+  background:#E2DCF0;
+  font-family:'Outfit',system-ui,sans-serif;
+  color:var(--tx);
+  -webkit-font-smoothing:antialiased;
+}
+
+.stage{
+  position:fixed;inset:0;bottom:60px;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;background:#DDD6EE;
+}
+.deck{
+  position:absolute;width:1920px;height:1080px;
+  transform-origin:top left;overflow:hidden;
+}
+.slide{
+  position:absolute;inset:0;
+  width:1920px;height:1080px;
+  display:none;overflow:hidden;background:var(--bg);
+}
+.slide.is-active{display:flex;}
+
+/* All animatable elements */
+.a{opacity:0;transform:translateY(22px);}
+
+/* ── SHARED ── */
+.lbl{font-size:11px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:var(--p);}
+.rule{width:44px;height:3px;border-radius:2px;background:var(--grad);}
+.title-xl{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:80px;font-weight:400;line-height:1.0;color:var(--tx);
+}
+.title-xl em{color:var(--p);font-style:normal;}
+.title-lg{font-family:'Outfit',sans-serif;font-size:60px;font-weight:700;line-height:1.05;color:var(--tx);}
+.title-lg em{color:var(--p);}
+.body-text{font-size:20px;font-weight:400;line-height:1.72;color:var(--mu);}
+
+/* ── NAV BAR ── */
+.nav-bar{
+  position:fixed;bottom:0;left:0;right:0;height:60px;
+  background:rgba(26,22,48,0.97);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-top:1px solid rgba(255,255,255,0.07);
+  display:flex;align-items:center;padding:0 36px;gap:28px;z-index:9999;
+}
+.nav-prog{position:absolute;top:0;left:0;height:2px;background:var(--grad);transition:width .55s cubic-bezier(.4,0,.2,1);pointer-events:none;}
+.nav-counter{font-size:12px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,0.35);white-space:nowrap;min-width:54px;}
+.nav-lbl{font-size:12px;font-weight:400;color:rgba(255,255,255,0.45);white-space:nowrap;min-width:200px;}
+.nav-dots{display:flex;align-items:center;gap:7px;flex:1;justify-content:center;}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.15);border:none;cursor:pointer;padding:0;transition:all .3s cubic-bezier(.4,0,.2,1);outline:none;}
+.dot.on{width:20px;height:6px;border-radius:3px;background:#fff;}
+.dot:hover:not(.on){background:rgba(255,255,255,0.4);}
+.nav-btns{display:flex;gap:8px;}
+.nb{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);border-radius:7px;padding:7px 16px;color:rgba(255,255,255,0.55);font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;outline:none;}
+.nb:hover{background:rgba(255,255,255,0.10);color:#fff;}
+.nb:disabled{opacity:.25;cursor:default;}
+.nb svg{width:14px;height:14px;flex-shrink:0;}
+
+/* ══════════════════════════════════════
+   SLIDE 00 — CAPA
+══════════════════════════════════════ */
+.s-cover{
+  background:
+    radial-gradient(ellipse 700px 500px at 18% 75%,rgba(107,66,168,0.06) 0%,transparent 70%),
+    radial-gradient(ellipse 500px 350px at 65% 15%,rgba(38,82,181,0.04) 0%,transparent 60%),
+    #FFFFFF;
+  flex-direction:column;position:relative;
+}
+.cv-dot-grid{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(117,83,181,0.065) 1px,transparent 1px);
+  background-size:38px 38px;
+}
+.cv-photo{
+  position:absolute;right:0;top:0;
+  width:800px;height:1080px;
+  object-fit:cover;object-position:50% 8%;z-index:1;
+}
+.cv-photo-fade{
+  position:absolute;right:0;top:0;width:800px;height:1080px;z-index:2;
+  background:linear-gradient(to right,#fff 0%,rgba(255,255,255,.80) 24%,rgba(255,255,255,.12) 68%,transparent 100%);
+}
+.cv-content{
+  position:relative;z-index:10;
+  width:1120px;height:1080px;
+  padding:72px 100px;
+  display:flex;flex-direction:column;
+}
+/* Logo — big and prominent */
+.cv-logo{
+  height:var(--logo-size);
+  object-fit:contain;object-position:left;
+  flex-shrink:0;
+  position:relative;
+  top:var(--logo-offset-top);
+  left:var(--logo-offset-left);
+  filter:drop-shadow(0 2px 12px rgba(107,66,168,0.08));
+}
+.cv-spacer{flex:1;}
+.cv-badge{
+  display:inline-block;
+  border:1.5px solid rgba(107,66,168,0.25);color:var(--p);
+  font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+  padding:7px 16px;border-radius:2px;width:fit-content;margin-bottom:20px;
+}
+.cv-rule{width:56px;height:3px;background:var(--grad);border-radius:2px;margin-bottom:22px;}
+.cv-headline{
+  font-family:'Outfit',sans-serif;
+  font-size:46px;font-weight:700;line-height:1.12;
+  color:var(--tx);max-width:860px;margin-bottom:24px;
+}
+.cv-points{display:flex;flex-direction:column;gap:8px;margin-bottom:48px;}
+.cv-point{
+  display:flex;align-items:center;gap:12px;
+  font-size:22px;font-weight:600;color:var(--p);
+}
+.cv-point::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--p);flex-shrink:0;}
+.cv-stats{display:flex;gap:0;border-top:1.5px solid var(--edge);padding-top:28px;}
+.cv-stat{flex:1;padding-right:32px;border-right:1.5px solid var(--edge);margin-right:32px;}
+.cv-stat:last-child{border-right:none;margin-right:0;padding-right:0;}
+.cv-stat__val{font-family:'Outfit',sans-serif;font-size:44px;font-weight:800;color:var(--p);line-height:1;margin-bottom:6px;}
+.cv-stat__lbl{font-size:14px;font-weight:400;color:var(--mu);line-height:1.4;}
+
+/* ══════════════════════════════════════
+   THEME COVER SLIDES
+══════════════════════════════════════ */
+.s-theme{
+  background:linear-gradient(150deg,#0E0A20 0%,#0C1640 60%,#0A0D30 100%);
+  flex-direction:row;align-items:center;position:relative;
+}
+.tc-num{
+  position:absolute;right:-20px;bottom:-60px;
+  font-family:'Outfit',sans-serif;font-size:360px;font-weight:900;line-height:1;
+  color:rgba(255,255,255,0.045);user-select:none;pointer-events:none;letter-spacing:-8px;
+}
+.tc-line{width:4px;height:300px;border-radius:2px;background:var(--grad);flex-shrink:0;margin:0 80px;}
+.tc-content{padding:0 20px 0 100px;max-width:920px;}
+.tc-chapter{font-size:11px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:rgba(168,127,232,0.8);display:block;margin-bottom:22px;}
+.tc-title{font-family:'Outfit',sans-serif;font-size:84px;font-weight:800;line-height:1.0;color:#FFFFFF;margin-bottom:24px;}
+.tc-rule{width:56px;height:3px;background:var(--grad);border-radius:2px;margin-bottom:24px;}
+.tc-sub{font-size:22px;font-weight:300;color:rgba(255,255,255,0.60);line-height:1.65;}
+
+/* ══════════════════════════════════════
+   CONTENT LAYOUT HELPERS
+══════════════════════════════════════ */
+.si{width:100%;height:100%;padding:80px 100px;display:flex;flex-direction:column;}
+.si--row{flex-direction:row;align-items:stretch;}
+
+/* ══════════════════════════════════════
+   SLIDE 02 — O PROBLEMA
+══════════════════════════════════════ */
+.dor-split{display:flex;height:100%;gap:60px;}
+.dor-left{flex:1.3;display:flex;flex-direction:column;justify-content:center;}
+.dor-right{flex:1;display:flex;flex-direction:column;justify-content:center;gap:24px;}
+.pain-card{background:var(--bg2);border:1.5px solid var(--edge);border-left:4px solid var(--p);border-radius:0 14px 14px 0;padding:24px 28px;}
+.pain-card__val{font-size:24px;font-weight:800;color:var(--tx);margin-bottom:8px;}
+.pain-card__txt{font-size:16px;font-weight:400;color:var(--mu);line-height:1.6;}
+
+/* ══════════════════════════════════════
+   SLIDE 03 — COMPARATIVO
+══════════════════════════════════════ */
+.trad-split{display:flex;height:100%;gap:28px;margin-top:40px;}
+.trad-col{flex:1;border-radius:20px;padding:44px 40px;display:flex;flex-direction:column;}
+.trad-col--bad{background:#FDF4F4;border:1.5px solid rgba(220,38,38,0.12);}
+.trad-col--good{background:var(--bg3);border:1.5px solid var(--edge);}
+.trad-col__head{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:28px;padding-bottom:20px;border-bottom:1.5px solid rgba(0,0,0,0.06);}
+.trad-col--bad .trad-col__head{color:#DC2626;}
+.trad-col--good .trad-col__head{color:var(--p);}
+.trad-item{display:flex;align-items:flex-start;gap:14px;padding:15px 0;border-bottom:1px solid rgba(0,0,0,0.05);}
+.trad-item:last-child{border-bottom:none;}
+.trad-item__icon{font-size:18px;font-weight:800;flex-shrink:0;line-height:1;margin-top:3px;}
+.trad-col--bad .trad-item__icon{color:#DC2626;}
+.trad-col--good .trad-item__icon{color:#16A34A;}
+.trad-item__text h4{font-size:17px;font-weight:700;color:var(--tx);margin-bottom:3px;}
+.trad-item__text p{font-size:14px;font-weight:400;color:var(--mu);line-height:1.5;}
+
+/* ══════════════════════════════════════
+   SLIDE 05 — A SOLUÇÃO
+══════════════════════════════════════ */
+.conv-quote{font-family:'Cormorant Garamond',Georgia,serif;font-size:54px;font-weight:400;line-height:1.12;color:var(--tx);max-width:1400px;margin-bottom:12px;}
+.conv-quote em{color:var(--p);font-style:italic;}
+.conv-sub{font-size:20px;font-weight:400;color:var(--mu);margin-bottom:52px;}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;flex:1;}
+.pillar{background:var(--bg);border:1.5px solid var(--edge);border-radius:20px;padding:44px 40px;display:flex;flex-direction:column;position:relative;overflow:hidden;box-shadow:var(--sh);}
+.pillar::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--grad);border-radius:20px 20px 0 0;}
+.pillar__icon{width:52px;height:52px;border-radius:12px;background:var(--bg3);display:flex;align-items:center;justify-content:center;margin-bottom:24px;flex-shrink:0;}
+.pillar__icon svg{width:24px;height:24px;stroke:var(--p);fill:none;stroke-width:1.8;}
+.pillar h3{font-size:24px;font-weight:700;color:var(--tx);margin-bottom:12px;line-height:1.2;}
+.pillar p{font-size:17px;font-weight:400;color:var(--mu);line-height:1.65;}
+
+/* ══════════════════════════════════════
+   SLIDE 06 — ZERO MENSALIDADE
+══════════════════════════════════════ */
+.zero-split{display:flex;height:100%;gap:0;}
+.zero-l{width:900px;flex-shrink:0;padding:90px 100px;display:flex;flex-direction:column;justify-content:center;border-right:1.5px solid var(--edge);}
+.zero-num{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:200px;font-weight:300;line-height:.85;
+  background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;letter-spacing:-6px;margin-bottom:12px;
+}
+.zero-num-lbl{font-size:32px;font-weight:700;color:var(--tx);margin-bottom:8px;}
+.zero-context{font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--p);margin-bottom:8px;}
+.zero-desc{font-size:20px;font-weight:400;color:var(--mu);line-height:1.65;max-width:580px;margin-bottom:36px;}
+.zero-pill{display:inline-flex;align-items:center;gap:10px;background:var(--bg3);border:1.5px solid var(--edge);border-radius:50px;padding:10px 22px;font-size:15px;font-weight:700;color:var(--p);width:fit-content;}
+.zero-pill::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--p);flex-shrink:0;}
+.zero-r{flex:1;padding:90px 80px;display:flex;flex-direction:column;justify-content:center;}
+.cmp{width:100%;border-collapse:collapse;border-radius:14px;overflow:hidden;}
+.cmp thead th{padding:15px 22px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+.cmp thead th:first-child{background:rgba(0,0,0,0.04);color:var(--mu2);text-align:left;}
+.cmp thead th:nth-child(2){background:rgba(220,38,38,0.06);color:#B91C1C;text-align:center;}
+.cmp thead th:nth-child(3){background:var(--grad);color:#fff;text-align:center;}
+.cmp tbody td{padding:14px 22px;border-bottom:1px solid var(--edge2);font-size:16px;vertical-align:middle;}
+.cmp tbody td:first-child{font-weight:600;color:var(--tx);background:rgba(0,0,0,0.01);}
+.cmp tbody td:nth-child(2){color:var(--mu);text-align:center;}
+.cmp tbody td:nth-child(3){background:var(--bg3);text-align:center;font-weight:700;color:var(--pd);}
+.cmp tbody tr:last-child td{border-bottom:none;}
+.ck{color:#16A34A;font-weight:800;}
+.cx{color:#DC2626;font-weight:800;}
+
+/* ══════════════════════════════════════
+   SLIDE 08 — COMO FUNCIONA (5 STEPS)
+══════════════════════════════════════ */
+.flow-row{display:flex;align-items:stretch;width:100%;flex:1;gap:0;}
+.fstep{flex:1;background:var(--bg);border:1.5px solid var(--edge);border-radius:18px;padding:38px 28px;display:flex;flex-direction:column;position:relative;overflow:hidden;box-shadow:var(--sh);}
+.fstep::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--grad);border-radius:18px 18px 0 0;}
+.fconn{flex-shrink:0;width:28px;display:flex;align-items:center;justify-content:center;}
+.fconn svg{width:16px;height:16px;stroke:var(--mu2);fill:none;}
+.fstep__n{font-family:'Cormorant Garamond',Georgia,serif;font-size:56px;font-weight:300;line-height:1;color:var(--p);opacity:.22;margin-bottom:22px;}
+.fstep h3{font-size:19px;font-weight:700;color:var(--tx);margin-bottom:10px;line-height:1.25;}
+.fstep p{font-size:14px;font-weight:400;color:var(--mu);line-height:1.6;}
+.fstep__badge{display:inline-block;margin-top:auto;padding-top:16px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--p);border-top:1px solid var(--edge);width:fit-content;}
+
+/* ══════════════════════════════════════
+   SLIDE 09 — CONTROLE FINANCEIRO
+══════════════════════════════════════ */
+.fin-split{display:flex;height:100%;gap:28px;}
+.fin-hero{
+  width:740px;flex-shrink:0;background:var(--grad);border-radius:24px;
+  padding:60px 52px;display:flex;flex-direction:column;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.fin-hero::before{content:'';position:absolute;bottom:-80px;right:-80px;width:350px;height:350px;border-radius:50%;background:rgba(255,255,255,0.07);}
+.fin-hero::after{content:'';position:absolute;top:-50px;left:-50px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,0.05);}
+.fin-hero>*{position:relative;z-index:2;}
+.fin-tag{display:inline-block;background:rgba(255,255,255,0.16);border:1px solid rgba(255,255,255,0.25);border-radius:50px;padding:5px 14px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;margin-bottom:20px;width:fit-content;}
+.fin-hero h2{font-family:'Outfit',sans-serif;font-size:50px;font-weight:800;color:#fff;line-height:1.05;margin-bottom:18px;}
+.fin-hero p{font-size:18px;font-weight:300;color:rgba(255,255,255,0.82);line-height:1.65;margin-bottom:36px;}
+.fin-day{display:flex;align-items:baseline;gap:12px;}
+.fin-day__n{font-family:'Cormorant Garamond',Georgia,serif;font-size:80px;font-weight:300;color:#fff;line-height:1;}
+.fin-day__t{font-size:15px;font-weight:300;color:rgba(255,255,255,0.65);line-height:1.45;}
+.fin-cards{flex:1;display:flex;flex-direction:column;gap:22px;}
+.fcard{flex:1;background:var(--bg);border:1.5px solid var(--edge);border-radius:18px;padding:30px 34px;display:flex;flex-direction:column;box-shadow:var(--sh);}
+.fcard__tag{display:inline-block;background:var(--bg3);border:1px solid var(--edge);border-radius:50px;padding:4px 12px;font-size:10px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--p);margin-bottom:10px;width:fit-content;}
+.fcard h3{font-size:22px;font-weight:700;color:var(--tx);margin-bottom:8px;line-height:1.2;}
+.fcard p{font-size:15px;font-weight:400;color:var(--mu);line-height:1.6;}
+
+/* ══════════════════════════════════════
+   SLIDE 11 — COBERTURAS
+══════════════════════════════════════ */
+.s-cob{background:var(--bg3);}
+.s-cob .lbl{color:var(--pd);}
+.cob-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:44px;flex:1;}
+.ccard{background:#fff;border:1.5px solid var(--edge);border-radius:22px;padding:44px 34px;display:flex;flex-direction:column;box-shadow:var(--sh-md);position:relative;overflow:hidden;}
+.ccard::after{content:'';position:absolute;bottom:-30px;right:-30px;width:100px;height:100px;border-radius:50%;background:rgba(107,66,168,0.05);}
+.ccard__n{font-family:'Cormorant Garamond',Georgia,serif;font-size:64px;font-weight:300;color:rgba(107,66,168,0.18);line-height:1;margin-bottom:18px;}
+.ccard h3{font-size:22px;font-weight:700;color:var(--tx);margin-bottom:10px;line-height:1.25;}
+.ccard p{font-size:15px;font-weight:400;color:var(--mu);line-height:1.6;margin-bottom:auto;}
+.cov-tag{display:inline-block;margin-top:20px;background:#DCFCE7;color:#15803D;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border-radius:50px;width:fit-content;}
+
+/* ══════════════════════════════════════
+   SLIDE 12 — ESPECIALIDADES
+══════════════════════════════════════ */
+.spec-split{display:flex;height:100%;gap:64px;}
+.spec-l{width:640px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center;}
+.spec-intro{background:var(--grad);border-radius:18px;padding:38px 34px;margin-bottom:24px;}
+.spec-intro p{font-size:19px;font-weight:300;color:rgba(255,255,255,.88);line-height:1.65;}
+.spec-intro strong{color:#fff;font-weight:700;}
+.spec-note{background:#FFFBEB;border:1.5px solid rgba(251,191,36,0.25);border-radius:12px;padding:18px 22px;font-size:15px;font-weight:400;color:#78350F;line-height:1.65;}
+.spec-note strong{color:#92400E;font-weight:700;}
+.spec-r{flex:1;display:flex;flex-direction:column;justify-content:center;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.sitem{background:var(--bg);border:1.5px solid var(--edge);border-radius:11px;padding:15px 18px;display:flex;align-items:center;gap:12px;box-shadow:var(--sh);}
+.sitem--wide{grid-column:span 2;}
+.sdot{width:7px;height:7px;border-radius:50%;background:var(--p);opacity:.45;flex-shrink:0;}
+.sitem span{font-size:15px;font-weight:500;color:var(--tx2);}
+
+/* ══════════════════════════════════════
+   SLIDE 14 — DIFERENCIAIS
+══════════════════════════════════════ */
+.s-diff{position:relative;}
+.diff-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(20%) brightness(.95);opacity:.05;}
+.s-diff .si{position:relative;z-index:1;}
+.diff-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:44px;flex:1;}
+.dcard{background:rgba(255,255,255,0.96);border:1.5px solid var(--edge);border-radius:20px;padding:40px 38px;display:flex;flex-direction:column;box-shadow:var(--sh-md);position:relative;overflow:hidden;}
+.dcard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--grad);border-radius:20px 0 0 20px;}
+.dcard__n{font-family:'Outfit',sans-serif;font-size:60px;font-weight:900;line-height:1;color:var(--p);opacity:.12;margin-bottom:8px;}
+.dcard h3{font-size:24px;font-weight:700;color:var(--tx);margin-bottom:10px;line-height:1.2;}
+.dcard p{font-size:17px;font-weight:400;color:var(--mu);line-height:1.65;}
+
+/* ══════════════════════════════════════
+   SLIDE 15 — SOBRE A DRA.
+══════════════════════════════════════ */
+.s-about{flex-direction:row;}
+.about-photo{width:720px;flex-shrink:0;position:relative;overflow:hidden;background:var(--grad);}
+.about-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 8%;mix-blend-mode:luminosity;opacity:.55;}
+.about-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,transparent 55%,#fff 100%);}
+.about-logo{position:absolute;top:44px;left:44px;height:56px;filter:brightness(0) invert(1);opacity:.85;z-index:10;object-fit:contain;object-position:left;}
+.about-content{flex:1;padding:80px 80px;display:flex;flex-direction:column;justify-content:center;}
+.about-name{font-family:'Cormorant Garamond',Georgia,serif;font-size:64px;font-weight:400;color:var(--tx);line-height:1.05;margin-bottom:6px;}
+.about-role{font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--p);margin-bottom:28px;}
+.about-bio{font-size:18px;font-weight:400;color:var(--mu);line-height:1.78;margin-bottom:36px;padding-bottom:36px;border-bottom:1.5px solid var(--edge);}
+.crows{display:flex;flex-direction:column;gap:14px;}
+.crow{display:flex;align-items:center;gap:16px;background:var(--bg2);border:1.5px solid var(--edge);border-radius:13px;padding:16px 22px;}
+.crow__icon{width:40px;height:40px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.crow__icon svg{width:17px;height:17px;stroke:#fff;fill:none;stroke-width:2;}
+.crow__lbl{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--mu2);display:block;margin-bottom:2px;}
+.crow__val{font-size:20px;font-weight:700;color:var(--tx);}
+
+/* ══════════════════════════════════════
+   SLIDE 16 — ENCERRAMENTO
+══════════════════════════════════════ */
+.s-close{
+  background:
+    radial-gradient(ellipse 900px 600px at 50% 50%,rgba(107,66,168,0.08) 0%,transparent 70%),
+    #fff;
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;
+}
+.close-dot-grid{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,rgba(117,83,181,0.055) 1px,transparent 1px);background-size:38px 38px;}
+.s-close>*{position:relative;z-index:2;}
+.close-logo{height:100px;object-fit:contain;margin-bottom:36px;}
+.close-eyebrow{font-size:11px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:var(--p);margin-bottom:16px;}
+.close-title{font-family:'Outfit',sans-serif;font-size:52px;font-weight:700;color:var(--tx);line-height:1.08;margin-bottom:16px;max-width:1100px;}
+.close-sub{font-size:20px;font-weight:400;color:var(--mu);line-height:1.65;max-width:640px;margin:0 auto 20px;}
+.close-cta{font-size:16px;font-weight:600;color:var(--p);margin-bottom:44px;letter-spacing:.3px;}
+.close-phones{display:flex;gap:24px;justify-content:center;margin-bottom:32px;}
+.close-phone{border:1.5px solid var(--edge);background:var(--bg2);padding:22px 44px;border-radius:14px;text-align:center;box-shadow:var(--sh);}
+.close-phone small{display:block;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mu2);margin-bottom:8px;}
+.close-phone span{font-size:24px;font-weight:700;color:var(--tx);}
+.close-tag{font-size:13px;font-weight:400;color:var(--mu2);letter-spacing:.5px;}
+</style>
+</head>
+<body>
+
+<div class="stage">
+ <div class="deck" id="deck">
+
+  <!-- ═══ SLIDE 00 — CAPA ═══ -->
+  <div class="slide s-cover is-active" data-i="0">
+   <div class="cv-dot-grid"></div>
+   <img class="cv-photo" src="./material/fernanda/ChatGPT Image 7 de mai. de 2026, 21_17_25 (2).png" alt="">
+   <div class="cv-photo-fade"></div>
+   <div class="cv-content">
+    <img class="cv-logo a" src="./LOGO.png" alt="Zubieta Odontologia">
+    <div class="cv-spacer"></div>
+    <span class="cv-badge a">Parceria Odontológica Empresarial</span>
+    <div class="cv-rule a"></div>
+    <h1 class="cv-headline a">Sua empresa não precisa pagar plano odontológico todo mês para cuidar da equipe.</h1>
+    <div class="cv-points a">
+     <div class="cv-point">Sem mensalidade.</div>
+     <div class="cv-point">Sem carência.</div>
+     <div class="cv-point">Sem desperdício.</div>
+    </div>
+    <div class="cv-stats a">
+     <div class="cv-stat">
+      <div class="cv-stat__val">R$ 0</div>
+      <div class="cv-stat__lbl">Mensalidade fixa</div>
+     </div>
+     <div class="cv-stat">
+      <div class="cv-stat__val">Dia 20</div>
+      <div class="cv-stat__lbl">Pagamento único via PIX</div>
+     </div>
+     <div class="cv-stat">
+      <div class="cv-stat__val">100%</div>
+      <div class="cv-stat__lbl">Pagamento apenas por uso real</div>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <!-- ═══ SLIDE 01 — TEMA 01 ═══ -->
+  <div class="slide s-theme" data-i="1">
+   <div class="tc-num">01</div>
+   <div class="tc-line a"></div>
+   <div class="tc-content">
+    <span class="tc-chapter a">Tema 01 de 05</span>
+    <h2 class="tc-title a">O custo invisível<br>da saúde bucal<br>na sua empresa</h2>
+    <div class="tc-rule a"></div>
+    <p class="tc-sub a">Faltas, urgências e queda de produtividade geram prejuízos que quase nunca aparecem na planilha.</p>
+   </div>
+  </div>
+
+  <!-- ═══ SLIDE 02 — O PROBLEMA ═══ -->
+  <div class="slide" data-i="2">
+   <div class="si">
+    <div class="dor-split">
+     <div class="dor-left">
+      <p class="lbl a">A realidade da operação</p>
+      <div class="rule a" style="margin:12px 0 24px;"></div>
+      <h2 class="title-xl a">Dor de dente vira<br><em>custo operacional.</em></h2>
+      <p class="body-text a" style="max-width:600px;margin-top:22px;">Quando um colaborador sente dor, a operação sente junto. A produtividade cai, o foco desaparece e pequenas urgências viram faltas, atrasos e retrabalho.<br><br>Muitas empresas só percebem o problema quando ele já começou a afetar o resultado do time.</p>
+     </div>
+     <div class="dor-right">
+      <div class="pain-card a">
+       <div class="pain-card__val">Faltas inesperadas</div>
+       <div class="pain-card__txt">Urgências odontológicas estão entre os principais motivos de ausência e queda de rendimento no ambiente de trabalho.</div>
+      </div>
+      <div class="pain-card a">
+       <div class="pain-card__val">Prejuízo invisível</div>
+       <div class="pain-card__txt">O custo não aparece em um boleto. Ele aparece na operação: atraso, baixa produtividade e perda de eficiência.</div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <!-- ═══ SLIDE 03 — COMPARATIVO ═══ -->
+  <div class="slide" data-i="3">
+   <div class="si">
+    <p class="lbl a">Plano tradicional vs novo modelo</p>
+    <div class="rule a" style="margin:12px 0 16px;"></div>
+    <h2 class="title-lg a">Plano odontológico cobra<br><em>até quando ninguém usa.</em></h2>
+    <div class="trad-split">
+     <div class="trad-col trad-col--bad a">
+      <div class="trad-col__head">Plano Convencional</div>
+      <div class="trad-item">
+       <div class="trad-item__icon">✕</div>
+       <div class="trad-item__text"><h4>Mensalidade obrigatória</h4><p>A empresa paga todos os meses, mesmo sem utilização.</p></div>
+      </div>
+      <div class="trad-item">
+       <div class="trad-item__icon">✕</div>
+       <div class="trad-item__text"><h4>Carência para atendimento</h4><p>O colaborador precisa esperar para usar procedimentos básicos.</p></div>
+      </div>
+      <div class="trad-item">
+       <div class="trad-item__icon">✕</div>
+       <div class="trad-item__text"><h4>Burocracia para aprovar</h4><p>Cada atendimento depende de autorização da operadora.</p></div>
+      </div>
+      <div class="trad-item">
+       <div class="trad-item__icon">✕</div>
+       <div class="trad-item__text"><h4>Custos difíceis de controlar</h4><p>A empresa paga sem visibilidade clara do uso real.</p></div>
+      </div>
+     </div>
+     <div class="trad-col trad-col--good a">
+      <div class="trad-col__head">Convênio Dra. Fernanda</div>
+      <div class="trad-item">
+       <div class="trad-item__icon">✓</div>
+       <div class="trad-item__text"><h4>Sem mensalidade fixa</h4><p>Sua empresa só paga pelos atendimentos realizados.</p></div>
+      </div>
+      <div class="trad-item">
+       <div class="trad-item__icon">✓</div>
+       <div class="trad-item__text"><h4>Uso imediato</h4><p>Sem carência e sem espera.</p></div>
+      </div>
+      <div class="trad-item">
+       <div class="trad-item__icon">✓</div>
+       <div class="trad-item__text"><h4>Aprovação direta</h4><p>Sem operadora, sem call center, sem burocracia.</p></div>
+      </div>
+      <div class="trad-item">
+       <div class="trad-item__icon">✓</div>
+       <div class="trad-item__text"><h4>Controle total do caixa</h4><p>Cada atendimento é informado antes da cobrança.</p></div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <!-- ═══ SLIDE 04 — TEMA 02 ═══ -->
+  <div class="slide s-theme" data-i="4">
+   <div class="tc-num">02</div>
+   <div class="tc-line a"></div>
+   <div class="tc-content">
+    <span class="tc-chapter a">Tema 02 de 05</span>
+    <h2 class="tc-title a">Um modelo mais<br>inteligente para<br>sua empresa.</h2>
+    <div class="tc-rule a"></div>
+    <p class="tc-sub a">Sem mensalidade fixa. Sem operadora.<br>Sem pagar pelo que não usa.</p>
+   </div>
+  </div>
+
+  <!-- ═══ SLIDE 05 — A SOLUÇÃO ═══ -->
+  <div class="slide" data-i="5">
+   <div class="si">
+    <p class="lbl a">A proposta</p>
+    <div class="rule a" style="margin:12px 0 16px;"></div>
+    <h2 class="conv-quote a">Sua empresa elimina o custo fixo<br><em>do plano odontológico.</em></h2>
+    <p class="conv-sub a">E continua oferecendo atendimento odontológico para a equipe com mais controle, previsibilidade e simplicidade.</p>
+    <div class="pillars">
+     <div class="pillar a">
+      <div class="pillar__icon">
+       <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+      </div>
+      <h3>Zero custo fixo mensal</h3>
+      <p>Sua empresa paga apenas pelos atendimentos realizados. Sem taxa por colaborador e sem mensalidade recorrente.</p>
+     </div>
+     <div class="pillar a">
+      <div class="pillar__icon">
+       <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>Controle antes da cobrança</h3>
+      <p>Cada atendimento é informado previamente. Você sabe exatamente o que será cobrado antes do pagamento.</p>
+     </div>
+     <div class="pillar a">
+      <div class="pillar__icon">
+       <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>Contrato flexível</h3>
+      <p>Inclua ou remova colaboradores quando precisar. Sem burocracia e sem multas abusivas.</p>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <!-- ═══ SLIDE 06 — ZERO MENSALIDADE ═══ -->
+  <div class="slide" data-i="6">
+   <div class="zero-split">
+    <div class="zero-l">
+     <p class="zero-context a">O maior diferencial</p>
+     <div class="zero-num a">R$ 0</div>
+     <p class="zero-num-lbl a">de mensalidade fixa</p>
+     <p class="zero-desc a">Sua empresa pode oferecer atendimento odontológico sem assumir um custo mensal permanente. Você paga apenas quando houver atendimento real.</p>
+     <div class="zero-pill a">Pague apenas pelo que usar</div>
+    </div>
+    <div class="zero-r">
+     <p class="lbl a" style="margin-bottom:20px;">Comparativo direto</p>
+     <table class="cmp a">
+      <thead>
+       <tr>
+        <th></th>
+        <th>Plano Convencional</th>
+        <th>Convênio Zubieta</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr><td>Mensalidade por funcionário</td><td><span class="cx">✕</span> Obrigatória</td><td><span class="ck">✓</span> Não existe</td></tr>
+       <tr><td>Cobra mesmo sem uso</td><td><span class="cx">✕</span> Sim</td><td><span class="ck">✓</span> Paga apenas quando usar</td></tr>
+       <tr><td>Carência</td><td><span class="cx">✕</span> Meses de espera</td><td><span class="ck">✓</span> Sem carência</td></tr>
+       <tr><td>Operadora intermediando</td><td><span class="cx">✕</span> Sim</td><td><span class="ck">✓</span> Atendimento direto</td></tr>
+       <tr><td>Custos previsíveis</td><td><span class="cx">✕</span> Difícil controlar</td><td><span class="ck">✓</span> Controle total</td></tr>
+       <tr><td>Flexibilidade contratual</td><td><span class="cx">✕</span> Contrato rígido</td><td><span class="ck">✓</span> Contrato flexível</td></tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+  </div>
+
+  <!-- ═══ SLIDE 07 — TEMA 03 ═══ -->
+  <div class="slide s-theme" data-i="7">
+   <div class="tc-num">03</div>
+   <div class="tc-line a"></div>
+   <div class="tc-content">
+    <span class="tc-chapter a">Tema 03 de 05</span>
+    <h2 class="tc-title a">Simples<br>como deve ser.</h2>
+    <div class="tc-rule a"></div>
+    <p class="tc-sub a">Sem operadora. Sem burocracia.<br>Sem processos complicados.</p>
+   </div>
+  </div>
+
+  <!-- ═══ SLIDE 08 — COMO FUNCIONA (5 ETAPAS) ═══ -->
+  <div class="slide" data-i="8">
+   <div class="si">
+    <p class="lbl a">Do atendimento ao pagamento</p>
+    <div class="rule a" style="margin:12px 0 16px;"></div>
+    <h2 class="title-lg a" style="margin-bottom:44px;">Como funciona <em>na prática</em></h2>
+    <div class="flow-row">
+     <div class="fstep a">
+      <div class="fstep__n">01</div>
+      <h3>O colaborador agenda</h3>
+      <p>Atendimento simples e rápido, sem burocracia.</p>
+      <span class="fstep__badge">Acesso imediato</span>
+     </div>
+     <div class="fconn a"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+     <div class="fstep a">
+      <div class="fstep__n">02</div>
+      <h3>A clínica realiza o atendimento</h3>
+      <p>Tudo dentro das coberturas acordadas com a empresa.</p>
+     </div>
+     <div class="fconn a"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+     <div class="fstep a">
+      <div class="fstep__n">03</div>
+      <h3>Sua empresa recebe o aviso</h3>
+      <p>Cada procedimento é informado antes da cobrança.</p>
+      <span class="fstep__badge">Você sabe primeiro</span>
+     </div>
+     <div class="fconn a"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+     <div class="fstep a">
+      <div class="fstep__n">04</div>
+      <h3>Aprovação rápida</h3>
+      <p>Sem formulários ou processos demorados.</p>
+      <span class="fstep__badge">Mesmo dia</span>
+     </div>
+     <div class="fconn a"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+     <div class="fstep a">
+      <div class="fstep__n">05</div>
+      <h3>Pagamento consolidado</h3>
+      <p>Um único PIX no dia 20 com nota fiscal incluída.</p>
+      <span class="fstep__badge">Dia 20 · NF garantida</span>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <!-- ═══ SLIDE 09 — CONTROLE FINANCEIRO ═══ -->
+  <div class="slide" data-i="9">
+   <div class="si si--row" style="gap:28px;padding-top:72px;">
+    <div class="fin-hero a">
+     <span class="fin-tag">Previsibilidade financeira</span>
+     <h2>Sua empresa define<br>quanto quer gastar.</h2>
+     <p>É possível estabelecer um teto mensal por colaborador. Caso ultrapasse esse limite, o próprio colaborador pode assumir diretamente o restante do tratamento com a clínica. Mais previsibilidade para o caixa da empresa.</p>
+     <div class="fin-day">
+      <span class="fin-day__n">20</span>
+      <span class="fin-day__t">Todo dia 20 · Via PIX<br>Nota fiscal incluída</span>
+     </div>
+    </div>
+    <div class="fin-cards">
+     <div class="fcard a">
+      <span class="fcard__tag">Transparência</span>
+      <h3>Transparência total</h3>
+      <p>Todos os atendimentos são informados antes da cobrança.</p>
+     </div>
+     <div class="fcard a">
+      <span class="fcard__tag">Operação</span>
+      <h3>Menos impacto na operação</h3>
+      <p>Atendimento local, sem deslocamentos longos e sem perda desnecessária de tempo.</p>
+     </div>
+     <div class="fcard a">
+      <span class="fcard__tag">Financeiro</span>
+      <h3>Simplicidade financeira</h3>
+      <p>Um pagamento. Uma nota fiscal. Sem cobranças fragmentadas.</p>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <!-- ═══ SLIDE 10 — TEMA 04 ═══ -->
+  <div class="slide s-theme" data-i="10">
+   <div class="tc-num">04</div>
+   <div class="tc-line a"></div>
+   <div class="tc-content">
+    <span class="tc-chapter a">Tema 04 de 05</span>
+    <h2 class="tc-title a">O essencial<br>coberto.<br>O restante acessível.</h2>
+    <div class="tc-rule a"></div>
+    <p class="tc-sub a">Os procedimentos mais importantes para evitar urgências, afastamentos e tratamentos mais caros.</p>
+   </div>
+  </div>
+
+  <!-- ═══ SLIDE 11 — COBERTURAS ═══ -->
+  <div class="slide s-cob" data-i="11">
+   <div class="si">
+    <p class="lbl a" style="color:var(--pd);">Procedimentos incluídos</p>
+    <div class="rule a" style="margin:12px 0 16px;"></div>
+    <h2 class="title-xl a" style="color:var(--tx);">O que sua empresa<br><em>cobre no convênio</em></h2>
+    <div class="cob-grid">
+     <div class="ccard a">
+      <div class="ccard__n">01</div>
+      <h3>Consulta inicial</h3>
+      <p>Avaliação completa e diagnóstico preventivo.</p>
+      <span class="cov-tag">Coberto pela empresa</span>
+     </div>
+     <div class="ccard a">
+      <div class="ccard__n">02</div>
+      <h3>Consulta de emergência</h3>
+      <p>Atendimento rápido para situações urgentes.</p>
+      <span class="cov-tag">Coberto pela empresa</span>
+     </div>
+     <div class="ccard a">
+      <div class="ccard__n">03</div>
+      <h3>Limpeza e raspagem</h3>
+      <p>Prevenção periodontal e manutenção da saúde bucal.</p>
+      <span class="cov-tag">Coberto pela empresa</span>
+     </div>
+     <div class="ccard a">
+      <div class="ccard__n">04</div>
+      <h3>Restauração em resina</h3>
+      <p>Tratamento precoce antes que pequenos problemas virem procedimentos maiores.</p>
+      <span class="cov-tag">Coberto pela empresa</span>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <!-- ═══ SLIDE 12 — ESPECIALIDADES ═══ -->
+  <div class="slide" data-i="12">
+   <div class="si">
+    <p class="lbl a">Além do convênio</p>
+    <div class="rule a" style="margin:12px 0 16px;"></div>
+    <h2 class="title-xl a" style="margin-bottom:32px;">Quando o tratamento<br><em>precisar ir além.</em></h2>
+    <div class="spec-split">
+     <div class="spec-l">
+      <div class="spec-intro a">
+       <p>O colaborador também pode acessar todas as especialidades da Clínica Zubieta.<br><br><strong>Sem custo adicional para a empresa. Sem impacto operacional.</strong></p>
+      </div>
+      <div class="spec-note a">
+       <strong>Para a empresa:</strong> Nenhuma dessas especialidades gera custo ou deslocamento obrigatório. Zero impacto no caixa.
+      </div>
+     </div>
+     <div class="spec-r">
+      <div class="spec-grid">
+       <div class="sitem a"><div class="sdot"></div><span>Ortodontia</span></div>
+       <div class="sitem a"><div class="sdot"></div><span>Implantes</span></div>
+       <div class="sitem a"><div class="sdot"></div><span>Endodontia</span></div>
+       <div class="sitem a"><div class="sdot"></div><span>Cirurgias</span></div>
+       <div class="sitem a"><div class="sdot"></div><span>Próteses</span></div>
+       <div class="sitem a"><div class="sdot"></div><span>Estética Dental</span></div>
+       <div class="sitem a"><div class="sdot"></div><span>Harmonização Orofacial</span></div>
+       <div class="sitem a"><div class="sdot"></div><span>Radiologia</span></div>
+       <div class="sitem sitem--wide a"><div class="sdot"></div><span>Entre outras especialidades</span></div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <!-- ═══ SLIDE 13 — TEMA 05 ═══ -->
+  <div class="slide s-theme" data-i="13">
+   <div class="tc-num">05</div>
+   <div class="tc-line a"></div>
+   <div class="tc-content">
+    <span class="tc-chapter a">Tema 05 de 05</span>
+    <h2 class="tc-title a" style="font-size:72px;">Mais proximidade.<br>Mais controle.<br>Menos burocracia.</h2>
+    <div class="tc-rule a"></div>
+    <p class="tc-sub a">Um modelo pensado para empresas que querem simplicidade e previsibilidade.</p>
+   </div>
+  </div>
+
+  <!-- ═══ SLIDE 14 — DIFERENCIAIS ═══ -->
+  <div class="slide s-diff" data-i="14">
+   <img class="diff-photo" src="./material/4.png" alt="">
+   <div class="si">
+    <p class="lbl a">O que muda na prática</p>
+    <div class="rule a" style="margin:12px 0 16px;"></div>
+    <h2 class="title-xl a">O que sua empresa ganha<br><em>com esse modelo</em></h2>
+    <div class="diff-grid">
+     <div class="dcard a">
+      <div class="dcard__n">01</div>
+      <h3>Atendimento direto</h3>
+      <p>Sem operadora, call center ou burocracia intermediando decisões.</p>
+     </div>
+     <div class="dcard a">
+      <div class="dcard__n">02</div>
+      <h3>Atendimento local</h3>
+      <p>Menos deslocamento e menos impacto na rotina da empresa.</p>
+     </div>
+     <div class="dcard a">
+      <div class="dcard__n">03</div>
+      <h3>Controle financeiro real</h3>
+      <p>Sua empresa acompanha exatamente o que está sendo utilizado.</p>
+     </div>
+     <div class="dcard a">
+      <div class="dcard__n">04</div>
+      <h3>Flexibilidade operacional</h3>
+      <p>O contrato acompanha a realidade da sua empresa.</p>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <!-- ═══ SLIDE 15 — SOBRE A DRA. ═══ -->
+  <div class="slide s-about" data-i="15">
+   <div class="about-photo">
+    <img src="./material/fernanda/ChatGPT Image 7 de mai. de 2026, 21_17_25 (1).png" alt="Dra. Fernanda Zubieta">
+    <img class="about-logo" src="./LOGO.png" alt="Zubieta Odontologia">
+   </div>
+   <div class="about-content">
+    <p class="lbl a">Quem conduz o convênio</p>
+    <div class="rule a" style="margin:12px 0 16px;"></div>
+    <h2 class="about-name a">Dra. Fernanda<br>Zubieta</h2>
+    <p class="about-role a">Cirurgiã-Dentista · Zubieta Odontologia</p>
+    <p class="about-bio a">A Dra. Fernanda atua com foco em atendimento humanizado, prevenção e agilidade clínica.<br><br>A Clínica Zubieta desenvolveu este modelo para oferecer às empresas da região uma alternativa mais simples, previsível e transparente ao plano odontológico tradicional.<br><br>O objetivo é tornar o acesso à saúde bucal mais fácil para colaboradores e mais inteligente para a empresa.</p>
+    <div class="crows">
+     <div class="crow a">
+      <div class="crow__icon">
+       <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.07 1.18 2 2 0 012.08.01h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      </div>
+      <div><span class="crow__lbl">Telefone</span><span class="crow__val">(19) 3588-6304</span></div>
+     </div>
+     <div class="crow a">
+      <div class="crow__icon">
+       <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+      </div>
+      <div><span class="crow__lbl">WhatsApp</span><span class="crow__val">(19) 99365-9100</span></div>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <!-- ═══ SLIDE 16 — ENCERRAMENTO ═══ -->
+  <div class="slide s-close" data-i="16">
+   <div class="close-dot-grid"></div>
+   <img class="close-logo a" src="./LOGO.png" alt="Zubieta Odontologia">
+   <p class="close-eyebrow a">Vamos conversar</p>
+   <h2 class="close-title a">Veja como sua empresa pode reduzir custos<br>sem abrir mão do cuidado com a equipe.</h2>
+   <p class="close-sub a">A Dra. Fernanda apresenta uma proposta personalizada para o tamanho e a realidade da sua operação.</p>
+   <p class="close-cta a">Solicite uma conversa ou peça uma simulação sem compromisso</p>
+   <div class="close-phones a">
+    <div class="close-phone">
+     <small>Telefone</small>
+     <span>(19) 3588-6304</span>
+    </div>
+    <div class="close-phone">
+     <small>WhatsApp</small>
+     <span>(19) 99365-9100</span>
+    </div>
+   </div>
+   <p class="close-tag a">Zubieta Odontologia · Convênio Empresarial</p>
+  </div>
+
+ </div><!-- /deck -->
+</div><!-- /stage -->
+
+<nav class="nav-bar" id="navBar">
+ <div class="nav-prog" id="navProg"></div>
+ <div class="nav-counter" id="navCtr">01 / 17</div>
+ <div class="nav-lbl" id="navLbl">Abertura</div>
+ <div class="nav-dots" id="navDots"></div>
+ <div class="nav-btns">
+  <button class="nb" id="btnP" disabled>
+   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Anterior
+  </button>
+  <button class="nb" id="btnN">
+   Próximo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </button>
+ </div>
+</nav>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+(function(){
+'use strict';
+
+const TOTAL = 17;
+const LABELS = [
+  'Abertura',
+  'Tema 01: O Custo Invisível',
+  'O Problema',
+  'Comparativo',
+  'Tema 02: Um Modelo Inteligente',
+  'A Solução',
+  'Zero Mensalidade',
+  'Tema 03: Simples Como Deve Ser',
+  'Como Funciona',
+  'Controle Financeiro',
+  'Tema 04: Coberturas',
+  'Procedimentos Cobertos',
+  'Especialidades',
+  'Tema 05: Por Que Zubieta',
+  'Diferenciais',
+  'Dra. Fernanda Zubieta',
+  'Encerramento'
+];
+
+let curr = 0;
+let busy = false;
+
+const deck = document.getElementById('deck');
+const slides = Array.from(document.querySelectorAll('.slide'));
+const ctr  = document.getElementById('navCtr');
+const lbl  = document.getElementById('navLbl');
+const dots = document.getElementById('navDots');
+const prog = document.getElementById('navProg');
+const btnP = document.getElementById('btnP');
+const btnN = document.getElementById('btnN');
+
+function scaleDeck(){
+  const sw = window.innerWidth, sh = window.innerHeight - 60;
+  const sc = Math.min(sw/1920, sh/1080);
+  deck.style.transform = `scale(${sc})`;
+  deck.style.left = ((sw - 1920*sc)/2) + 'px';
+  deck.style.top  = ((sh - 1080*sc)/2) + 'px';
+  deck.style.transformOrigin = 'top left';
+}
+
+function buildDots(){
+  for(let i = 0; i < TOTAL; i++){
+    const b = document.createElement('button');
+    b.className = 'dot' + (i === 0 ? ' on' : '');
+    b.setAttribute('aria-label', 'Slide ' + (i+1));
+    b.addEventListener('click', () => goTo(i));
+    dots.appendChild(b);
+  }
+}
+
+function updateNav(){
+  const pad = n => String(n).padStart(2,'0');
+  ctr.textContent = pad(curr+1) + ' / ' + pad(TOTAL);
+  lbl.textContent = LABELS[curr];
+  prog.style.width = ((curr+1)/TOTAL*100) + '%';
+  btnP.disabled = curr === 0;
+  btnN.disabled = curr === TOTAL - 1;
+  dots.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('on', i === curr));
+}
+
+function aEls(sl){ return Array.from(sl.querySelectorAll('.a')); }
+
+function animIn(sl){
+  const els = aEls(sl);
+  if(!els.length) return;
+  const isTheme = sl.classList.contains('s-theme');
+  const stagger = isTheme ? 0.13 : Math.max(0.035, Math.min(0.085, 0.65/els.length));
+  const dur = isTheme ? 0.72 : 0.5;
+  gsap.to(els, { opacity:1, y:0, stagger, duration:dur, ease: isTheme ? 'power3.out' : 'power2.out' });
+}
+
+function goTo(next){
+  if(next === curr || busy || next < 0 || next >= TOTAL) return;
+  busy = true;
+  const dir = next > curr ? 1 : -1;
+  const outSl = slides[curr];
+  const innSl = slides[next];
+
+  const innEls = aEls(innSl);
+  gsap.set(innEls, { opacity:0, y:22 });
+  gsap.set(innSl, { display:'flex', opacity:0, x:70*dir });
+
+  const tl = gsap.timeline({ onComplete: () => {
+    gsap.set(outSl, { display:'none', x:0, opacity:1 });
+    gsap.set(aEls(outSl), { opacity:0, y:22 });
+    curr = next;
+    busy = false;
+    updateNav();
+    animIn(innSl);
+  }});
+
+  tl.to(outSl, { opacity:0, x:-70*dir, duration:.42, ease:'power3.in' }, 0)
+    .to(innSl, { opacity:1, x:0, duration:.50, ease:'power3.out' }, 0.14);
+}
+
+document.addEventListener('keydown', e => {
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){ e.preventDefault(); goTo(curr+1); }
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp'){ e.preventDefault(); goTo(curr-1); }
+  if(e.key==='Home') goTo(0);
+  if(e.key==='End')  goTo(TOTAL-1);
+});
+
+let tx = 0;
+deck.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive:true });
+deck.addEventListener('touchend',   e => {
+  const dx = e.changedTouches[0].clientX - tx;
+  if(Math.abs(dx) > 60) goTo(curr + (dx < 0 ? 1 : -1));
+}, { passive:true });
+
+let wt = 0;
+deck.addEventListener('wheel', e => {
+  e.preventDefault();
+  const now = Date.now();
+  if(now - wt < 650) return;
+  wt = now;
+  goTo(curr + (e.deltaY > 0 ? 1 : -1));
+}, { passive:false });
+
+btnP.addEventListener('click', () => goTo(curr-1));
+btnN.addEventListener('click', () => goTo(curr+1));
+
+buildDots();
+scaleDeck();
+updateNav();
+window.addEventListener('resize', scaleDeck);
+
+/* First slide — pre-hide then reveal on load */
+gsap.set(aEls(slides[0]), { opacity:0, y:22 });
+window.addEventListener('load', () => {
+  setTimeout(() => animIn(slides[0]), 160);
+});
+
+})();
+</script>
+</body>
+</html>
